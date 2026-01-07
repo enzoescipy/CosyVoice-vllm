@@ -126,8 +126,9 @@ if __name__ == '__main__':
 
     ## initial setup
     from huggingface_hub import snapshot_download
-    snapshot_download('Lourdle/Fun-CosyVoice3-0.5B-2512_ONNX', local_dir='pretrained_models/Fun-CosyVoice3-0.5B')
-    snapshot_download('FunAudioLLM/Fun-CosyVoice3-0.5B-2512', local_dir='pretrained_models/Fun-CosyVoice3-0.5B', allow_patterns='*')
+    if not os.path.isdir("pretrained_models/Fun-CosyVoice3-0.5B"):
+        snapshot_download('Lourdle/Fun-CosyVoice3-0.5B-2512_ONNX', local_dir='pretrained_models/Fun-CosyVoice3-0.5B')
+        snapshot_download('FunAudioLLM/Fun-CosyVoice3-0.5B-2512', local_dir='pretrained_models/Fun-CosyVoice3-0.5B', allow_patterns='*')
     ## operation
     import time
     import base64

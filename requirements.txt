@@ -2,13 +2,13 @@
 # > apt-get update && apt-get install -y git espeak-ng ffmpeg nvidia-cuda-toolkit
 #
 ## Install pytorch FIRST !!!
-# torch serize installation : https://pytorch.org/get-started/locally/
-#
-# pip3 install torch torchvision --index-url https://download.pytorch.org/whl/cu128 
+# torch serize installation : https://pytorch.org/get-started/previous-versions
+# find the CUDA 11.3, which is : 
+# pip install torch==1.12.1+cu113 torchaudio==0.12.1 --extra-index-url https://download.pytorch.org/whl/cu113
 # (2026/01)
 #
 # torch 
-torchaudio
+# torchaudio
 conformer
 deepspeed; sys_platform == 'linux'
 diffusers
@@ -21,7 +21,7 @@ diffusers
 # grpcio-tools
 # hydra-core
 HyperPyYAML
-# inflect
+inflect
 # librosa
 # lightning
 matplotlib
@@ -29,15 +29,16 @@ matplotlib
 huggingface_hub # replaced to huggingface_hub
 # networkx
 numpy
-# omegaconf
+omegaconf
 onnx
-onnxruntime-gpu; sys_platform == 'linux' or sys_platform == 'win32'
-onnxruntime; sys_platform == 'darwin'
+# onnxruntime-gpu; sys_platform == 'linux' or sys_platform == 'win32'
+onnxruntime-gpu; sys_platform == 'linux' # use wsl if you want to proceed
+# onnxruntime; sys_platform == 'darwin' # currently, fixed in linux for tensorRT support.
 openai-whisper
 # protobuf
-# pyarrow
+pyarrow
 # pydantic
-# pyworld
+pyworld
 # rich
 soundfile
 # tensorboard
@@ -45,8 +46,10 @@ tensorrt-cu12; sys_platform == 'linux'
 tensorrt-cu12-bindings; sys_platform == 'linux'
 tensorrt-cu12-libs; sys_platform == 'linux'
 transformers
-# x-transformers
+accelerate
+x-transformers
 # uvicorn
-# wetext
+wetext
 # wget
 vllm
+matcha-tts

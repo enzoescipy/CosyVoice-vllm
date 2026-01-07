@@ -1,101 +1,123 @@
+# Note : enzoescipy/CosyVoice-vllm encourage to see the vllm_example.py too.
+
+
+import torchaudio
+from cosyvoice.cli.cosyvoice import AutoModel
 import sys
 sys.path.append('third_party/Matcha-TTS')
-from cosyvoice.cli.cosyvoice import AutoModel
-import torchaudio
 
 
 def cosyvoice_example():
-    """ CosyVoice Usage, check https://fun-audio-llm.github.io/ for more details
+    """ CosyVoice 사용법, 자세한 내용은 https://fun-audio-llm.github.io/ 확인
     """
     cosyvoice = AutoModel(model_dir='pretrained_models/CosyVoice-300M-SFT')
-    # sft usage
+    # sft 사용법
     print(cosyvoice.list_available_spks())
-    # change stream=True for chunk stream inference
-    for i, j in enumerate(cosyvoice.inference_sft('你好，我是通义生成式语音大模型，请问有什么可以帮您的吗？', '中文女', stream=False)):
-        torchaudio.save('sft_{}.wav'.format(i), j['tts_speech'], cosyvoice.sample_rate)
+    # 청크 스트리밍 추론을 위해 stream=True로 변경
+    for i, j in enumerate(cosyvoice.inference_sft('안녕하세요, 저는 Tongyi 생성형 음성 언어모델입니다. 도와드릴까요?', '한국어 여성', stream=False)):
+        torchaudio.save('sft_{}.wav'.format(
+            i), j['tts_speech'], cosyvoice.sample_rate)
 
     cosyvoice = AutoModel(model_dir='pretrained_models/CosyVoice-300M')
-    # zero_shot usage
-    for i, j in enumerate(cosyvoice.inference_zero_shot('收到好友从远方寄来的生日礼物，那份意外的惊喜与深深的祝福让我心中充满了甜蜜的快乐，笑容如花儿般绽放。', '希望你以后能够做的比我还好呦。', './asset/zero_shot_prompt.wav')):
-        torchaudio.save('zero_shot_{}.wav'.format(i), j['tts_speech'], cosyvoice.sample_rate)
-    # cross_lingual usage, <|zh|><|en|><|ja|><|yue|><|ko|> for Chinese/English/Japanese/Cantonese/Korean
-    for i, j in enumerate(cosyvoice.inference_cross_lingual('<|en|>And then later on, fully acquiring that company. So keeping management in line, interest in line with the asset that\'s coming into the family is a reason why sometimes we don\'t buy the whole thing.',
+    # zero_shot 사용법
+    for i, j in enumerate(cosyvoice.inference_zero_shot('오랜만에 친구에게서 생일 선물을 받았어요. 예상치 못한 깜짝 선물에 마음이 따뜻해지고, 절로 미소가 지어졌습니다.', '앞으로 더 멋진 사람이 되길 바랄게.', './asset/zero_shot_prompt.wav')):
+        torchaudio.save('zero_shot_{}.wav'.format(
+            i), j['tts_speech'], cosyvoice.sample_rate)
+    # cross_lingual 사용법, 중국어/영어/일본어/광둥어/한국어용 <|zh|><|en|><|ja|><|yue|><|ko|>
+    for i, j in enumerate(cosyvoice.inference_cross_lingual('<|ko|>그리고 나중에 그 회사를 완전히 인수하게 되면. 그래서 경영진을 일하게 하고, 가족에 들어오는 자산과 일치하는 이익을 유지하는 것이, 때때로 전체를 사지 않는 이유입니다.',
                                                             './asset/cross_lingual_prompt.wav')):
-        torchaudio.save('cross_lingual_{}.wav'.format(i), j['tts_speech'], cosyvoice.sample_rate)
-    # vc usage
+        torchaudio.save('cross_lingual_{}.wav'.format(
+            i), j['tts_speech'], cosyvoice.sample_rate)
+    # vc 사용법
     for i, j in enumerate(cosyvoice.inference_vc('./asset/cross_lingual_prompt.wav', './asset/zero_shot_prompt.wav')):
-        torchaudio.save('vc_{}.wav'.format(i), j['tts_speech'], cosyvoice.sample_rate)
+        torchaudio.save('vc_{}.wav'.format(
+            i), j['tts_speech'], cosyvoice.sample_rate)
 
-    cosyvoice = AutoModel(model_dir='pretrained_models/CosyVoice-300M-Instruct')
-    # instruct usage, support <laughter></laughter><strong></strong>[laughter][breath]
-    for i, j in enumerate(cosyvoice.inference_instruct('在面对挑战时，他展现了非凡的<strong>勇气</strong>与<strong>智慧</strong>。', '中文男',
-                                                       'Theo \'Crimson\', is a fiery, passionate rebel leader. Fights with fervor for justice, but struggles with impulsiveness.<|endofprompt|>')):
-        torchaudio.save('instruct_{}.wav'.format(i), j['tts_speech'], cosyvoice.sample_rate)
+    cosyvoice = AutoModel(
+        model_dir='pretrained_models/CosyVoice-300M-Instruct')
+    # instruct 사용법, <laughter></laughter><strong></strong>[laughter][breath] 지원
+    for i, j in enumerate(cosyvoice.inference_instruct('도전을 마주할 때, 그는 비범한<strong>용기</strong>와 <strong>지혜</strong>를 보여줍니다.', '한국어 남성',
+                                                       '테오 크림슨은 불타오르는 열정의 반항군 리더입니다. 정의를 위해 열정적으로 싸우지만, 충동적입니다.<|endofprompt|>')):
+        torchaudio.save('instruct_{}.wav'.format(
+            i), j['tts_speech'], cosyvoice.sample_rate)
 
 
 def cosyvoice2_example():
-    """ CosyVoice2 Usage, check https://funaudiollm.github.io/cosyvoice2/ for more details
+    """ CosyVoice2 사용법, 자세한 내용은 https://funaudiollm.github.io/cosyvoice2/ 확인
     """
-    cosyvoice = AutoModel(model_dir='pretrained_models/CosyVoice2-0.5B', load_onnx=True)
+    cosyvoice = AutoModel(
+        model_dir='pretrained_models/CosyVoice2-0.5B', load_onnx=True)
 
-    # NOTE if you want to reproduce the results on https://funaudiollm.github.io/cosyvoice2, please add text_frontend=False during inference
-    # zero_shot usage
-    # NOTE stream=True (streaming inference) is NOT supported in ONNX mode, please always use stream=False if load_onnx=True
-    for i, j in enumerate(cosyvoice.inference_zero_shot('收到好友从远方寄来的生日礼物，那份意外的惊喜与深深的祝福让我心中充满了甜蜜的快乐，笑容如花儿般绽放。', '希望你以后能够做的比我还好呦。', './asset/zero_shot_prompt.wav')):
-        torchaudio.save('zero_shot_{}.wav'.format(i), j['tts_speech'], cosyvoice.sample_rate)
+    # 주의: https://funaudiollm.github.io/cosyvoice2 결과를 재현하려면 추론 시 text_frontend=False 추가
+    # zero_shot 사용법
+    # 주의: ONNX 모드에서는 스트리밍 추론(stream=True) 미지원, load_onnx=True 시 항상 stream=False 사용
+    for i, j in enumerate(cosyvoice.inference_zero_shot('오랜만에 친구에게서 생일 선물을 받았어요. 예상치 못한 깜짝 선물에 마음이 따뜻해지고, 절로 미소가 지어졌습니다.', '앞으로 더 멋진 사람이 되길 바랄게.', './asset/zero_shot_prompt.wav')):
+        torchaudio.save('zero_shot_{}.wav'.format(
+            i), j['tts_speech'], cosyvoice.sample_rate)
 
-    # save zero_shot spk for future usage
-    assert cosyvoice.add_zero_shot_spk('希望你以后能够做的比我还好呦。', './asset/zero_shot_prompt.wav', 'my_zero_shot_spk') is True
-    for i, j in enumerate(cosyvoice.inference_zero_shot('收到好友从远方寄来的生日礼物，那份意外的惊喜与深深的祝福让我心中充满了甜蜜的快乐，笑容如花儿般绽放。', '', '', zero_shot_spk_id='my_zero_shot_spk')):
-        torchaudio.save('zero_shot_{}.wav'.format(i), j['tts_speech'], cosyvoice.sample_rate)
+    # future use를 위한 zero_shot spk 저장
+    assert cosyvoice.add_zero_shot_spk(
+        '앞으로 더 멋진 사람이 되길 바랄게.', './asset/zero_shot_prompt.wav', 'my_zero_shot_spk') is True
+    for i, j in enumerate(cosyvoice.inference_zero_shot('오랜만에 친구에게서 생일 선물을 받았어요. 예상치 못한 깜짝 선물에 마음이 따뜻해지고, 절로 미소가 지어졌습니다.', '', '', zero_shot_spk_id='my_zero_shot_spk')):
+        torchaudio.save('zero_shot_{}.wav'.format(
+            i), j['tts_speech'], cosyvoice.sample_rate)
     cosyvoice.save_spkinfo()
 
-    # fine grained control, for supported control, check cosyvoice/tokenizer/tokenizer.py#L248
-    for i, j in enumerate(cosyvoice.inference_cross_lingual('在他讲述那个荒诞故事的过程中，他突然[laughter]停下来，因为他自己也被逗笑了[laughter]。', './asset/zero_shot_prompt.wav')):
-        torchaudio.save('fine_grained_control_{}.wav'.format(i), j['tts_speech'], cosyvoice.sample_rate)
+    # 세밀한 제어, 지원 제어는 cosyvoice/tokenizer/tokenizer.py#L248 확인
+    for i, j in enumerate(cosyvoice.inference_cross_lingual('그가 그 터무니없는 이야기를 하는 동안, 갑자기[laughter] 멈추었어요. 왜냐하면 자신도 웃기게 되었기 때문이에요[laughter].', './asset/zero_shot_prompt.wav')):
+        torchaudio.save('fine_grained_control_{}.wav'.format(i),
+                        j['tts_speech'], cosyvoice.sample_rate)
 
-    # instruct usage
-    for i, j in enumerate(cosyvoice.inference_instruct2('收到好友从远方寄来的生日礼物，那份意外的惊喜与深深的祝福让我心中充满了甜蜜的快乐，笑容如花儿般绽放。', '用四川话说这句话<|endofprompt|>', './asset/zero_shot_prompt.wav')):
-        torchaudio.save('instruct_{}.wav'.format(i), j['tts_speech'], cosyvoice.sample_rate)
+    # instruct 사용법
+    for i, j in enumerate(cosyvoice.inference_instruct2('오랜만에 친구에게서 생일 선물을 받았어요. 예상치 못한 깜짝 선물에 마음이 따뜻해지고, 절로 미소가 지어졌습니다.', '제주도 사투리로 말해주세요.<|endofprompt|>', './asset/zero_shot_prompt.wav')):
+        torchaudio.save('instruct_{}.wav'.format(
+            i), j['tts_speech'], cosyvoice.sample_rate)
 
-    # bistream usage, you can use generator as input, this is useful when using text llm model as input
-    # NOTE you should still have some basic sentence split logic because llm can not handle arbitrary sentence length
+    # bistream 사용법, generator를 입력으로 사용 가능, 텍스트 LLM 모델 입력 시 유용
+    # 주의: LLM이 임의 문장 길이를 처리할 수 없으므로 기본 문장 분할 로직 필요
     def text_generator():
-        yield '收到好友从远方寄来的生日礼物，'
-        yield '那份意外的惊喜与深深的祝福'
-        yield '让我心中充满了甜蜜的快乐，'
-        yield '笑容如花儿般绽放。'
-    for i, j in enumerate(cosyvoice.inference_zero_shot(text_generator(), '希望你以后能够做的比我还好呦。', './asset/zero_shot_prompt.wav', stream=False)):
-        torchaudio.save('zero_shot_bistream_{}.wav'.format(i), j['tts_speech'], cosyvoice.sample_rate)
+        yield '오랜만에 친구에게서 '
+        yield '생일 선물을 받았어요.'
+        yield '예상치 못한 깜짝 선물에 '
+        yield '마음이 따뜻해지고, 절로 미소가 지어졌습니다.'
+    for i, j in enumerate(cosyvoice.inference_zero_shot(text_generator(), '앞으로 더 멋진 사람이 되길 바랄게.', './asset/zero_shot_prompt.wav', stream=False)):
+        torchaudio.save('zero_shot_bistream_{}.wav'.format(i),
+                        j['tts_speech'], cosyvoice.sample_rate)
 
 
 def cosyvoice3_example():
-    """ CosyVoice3 Usage, check https://funaudiollm.github.io/cosyvoice3/ for more details
+    """ CosyVoice3 사용법, 자세한 내용은 https://funaudiollm.github.io/cosyvoice3/ 확인
     """
-    cosyvoice = AutoModel(model_dir='pretrained_models/Fun-CosyVoice3-0.5B', load_onnx=True)
-    # zero_shot usage
-    # NOTE stream=True (streaming inference) is NOT supported in ONNX mode, please always use stream=False if load_onnx=True
-    for i, j in enumerate(cosyvoice.inference_zero_shot('八百标兵奔北坡，北坡炮兵并排跑，炮兵怕把标兵碰，标兵怕碰炮兵炮。', 'You are a helpful assistant.<|endofprompt|>希望你以后能够做的比我还好呦。',
+    cosyvoice = AutoModel(
+        model_dir='pretrained_models/Fun-CosyVoice3-0.5B', load_onnx=True)
+    # zero_shot 사용법
+    # 주의: ONNX 모드에서는 스트리밍 추론(stream=True) 미지원, load_onnx=True 시 항상 stream=False 사용
+    for i, j in enumerate(cosyvoice.inference_zero_shot('간장 공장 공장장은 장 공장장이다.', 'You are a helpful assistant.<|endofprompt|>앞으로 더 멋진 사람이 되길 바랄게.',
                                                         './asset/zero_shot_prompt.wav', stream=False)):
-        torchaudio.save('zero_shot_{}.wav'.format(i), j['tts_speech'], cosyvoice.sample_rate)
+        torchaudio.save('zero_shot_{}.wav'.format(
+            i), j['tts_speech'], cosyvoice.sample_rate)
 
-    # fine grained control, for supported control, check cosyvoice/tokenizer/tokenizer.py#L280
-    for i, j in enumerate(cosyvoice.inference_cross_lingual('You are a helpful assistant.<|endofprompt|>[breath]因为他们那一辈人[breath]在乡里面住的要习惯一点，[breath]邻居都很活络，[breath]嗯，都很熟悉。[breath]',
+    # 세밀한 제어, 지원 제어는 cosyvoice/tokenizer/tokenizer.py#L280 확인
+    for i, j in enumerate(cosyvoice.inference_cross_lingual('You are a helpful assistant.<|endofprompt|>[breath]그 세대 사람들은[breath] 시골에서 살다 보니 익숙해졌어요,[breath] 이웃들도 활발하고,[breath]음, 다들 친숙해요.[breath]',
                                                             './asset/zero_shot_prompt.wav', stream=False)):
-        torchaudio.save('fine_grained_control_{}.wav'.format(i), j['tts_speech'], cosyvoice.sample_rate)
+        torchaudio.save('fine_grained_control_{}.wav'.format(i),
+                        j['tts_speech'], cosyvoice.sample_rate)
 
-    # instruct usage, for supported control, check cosyvoice/utils/common.py#L28
-    for i, j in enumerate(cosyvoice.inference_instruct2('好少咯，一般系放嗰啲国庆啊，中秋嗰啲可能会咯。', 'You are a helpful assistant. 请用广东话表达。<|endofprompt|>',
+    # instruct 사용법, 지원 제어는 cosyvoice/utils/common.py#L28 확인
+    for i, j in enumerate(cosyvoice.inference_instruct2('좀 적어요, 보통 광복절이나 단오처럼 될 거예요.', 'You are a helpful assistant. 제주 사투리로 표현해주세요.<|endofprompt|>',
                                                         './asset/zero_shot_prompt.wav', stream=False)):
-        torchaudio.save('instruct_{}.wav'.format(i), j['tts_speech'], cosyvoice.sample_rate)
-    for i, j in enumerate(cosyvoice.inference_instruct2('收到好友从远方寄来的生日礼物，那份意外的惊喜与深深的祝福让我心中充满了甜蜜的快乐，笑容如花儿般绽放。', 'You are a helpful assistant. 请用尽可能快地语速说一句话。<|endofprompt|>',
+        torchaudio.save('instruct_{}.wav'.format(
+            i), j['tts_speech'], cosyvoice.sample_rate)
+    for i, j in enumerate(cosyvoice.inference_instruct2('오랜만에 친구에게서 생일 선물을 받았어요. 예상치 못한 깜짝 선물에 마음이 따뜻해지고, 절로 미소가 지어졌습니다.', 'You are a helpful assistant. 가능한 한 빠른 말투로 한 문장을 말해주세요.<|endofprompt|>',
                                                         './asset/zero_shot_prompt.wav', stream=False)):
-        torchaudio.save('instruct_{}.wav'.format(i), j['tts_speech'], cosyvoice.sample_rate)
+        torchaudio.save('instruct_{}.wav'.format(
+            i), j['tts_speech'], cosyvoice.sample_rate)
 
-    # hotfix usage
-    for i, j in enumerate(cosyvoice.inference_zero_shot('高管也通过电话、短信、微信等方式对报道[j][ǐ]予好评。', 'You are a helpful assistant.<|endofprompt|>希望你以后能够做的比我还好呦。',
+    # hotfix 사용법
+    for i, j in enumerate(cosyvoice.inference_zero_shot('시민들도 인스타그램, 페이스북, X(트위터) 등 SNS를 통해 보도에 [j][ǐ] 좋은 평가를 내렸습니다.', 'You are a helpful assistant.<|endofprompt|>앞으로 더 멋진 사람이 되길 바랄게.',
                                                         './asset/zero_shot_prompt.wav', stream=False)):
-        torchaudio.save('hotfix_{}.wav'.format(i), j['tts_speech'], cosyvoice.sample_rate)
+        torchaudio.save('hotfix_{}.wav'.format(
+            i), j['tts_speech'], cosyvoice.sample_rate)
 
 
 def main():
