@@ -1,5 +1,7 @@
-torch 
-torchaudio
+## tourch serise should be installed before pip installation.
+# torch 
+# torchaudio
+# torchcodec
 conformer
 # deepspeed; sys_platform == 'linux'
 diffusers >= 0.26.0
