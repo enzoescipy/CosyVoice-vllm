@@ -1,42 +1,52 @@
+## development enviroment setting
+# > apt-get update && apt-get install -y git espeak-ng ffmpeg nvidia-cuda-toolkit
+#
+## Install pytorch FIRST !!!
+# torch serize installation : https://pytorch.org/get-started/locally/
+#
+# pip3 install torch torchvision --index-url https://download.pytorch.org/whl/cu128 
+# (2026/01)
+#
+# torch 
+torchaudio
 conformer
 deepspeed; sys_platform == 'linux'
 diffusers
-fastapi
-fastapi-cli
-gdown
-gradio
-grpcio
-grpcio-tools
-hydra-core
+# fastapi
+# fastapi-cli
+# gradio is needed for ./webui.py. activate if you need to setup gradio application.
+# gradio
+# gdown
+# grpcio
+# grpcio-tools
+# hydra-core
 HyperPyYAML
-inflect
-librosa
-lightning
+# inflect
+# librosa
+# lightning
 matplotlib
-modelscope
-networkx
+# modelscope
+huggingface_hub # replaced to huggingface_hub
+# networkx
 numpy
-omegaconf
+# omegaconf
 onnx
 onnxruntime-gpu; sys_platform == 'linux' or sys_platform == 'win32'
 onnxruntime; sys_platform == 'darwin'
 openai-whisper
-protobuf
-pyarrow
-pydantic
-pyworld
-rich
+# protobuf
+# pyarrow
+# pydantic
+# pyworld
+# rich
 soundfile
-tensorboard
+# tensorboard
 tensorrt-cu12; sys_platform == 'linux'
 tensorrt-cu12-bindings; sys_platform == 'linux'
 tensorrt-cu12-libs; sys_platform == 'linux'
-torch
-torchaudio
 transformers
-x-transformers
-uvicorn
-wetext
-wget
+# x-transformers
+# uvicorn
+# wetext
+# wget
 vllm
-# torch installation : https://pytorch.org/get-started/locally/
