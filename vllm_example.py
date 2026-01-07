@@ -136,6 +136,18 @@ if __name__ == '__main__':
         snapshot_download('FunAudioLLM/Fun-CosyVoice3-0.5B-2512', local_dir='pretrained_models/Fun-CosyVoice3-0.5B', allow_patterns='*')
     if not os.path.isdir("pretrained_models/CosyVoice-ttsfrd"):
         snapshot_download('FunAudioLLM/CosyVoice-ttsfrd', local_dir='pretrained_models/CosyVoice-ttsfrd', allow_patterns='*')
+        
+        # ttsfrd resource extraction
+        import zipfile
+        ttsfrd_dir = 'pretrained_models/CosyVoice-ttsfrd'
+        zip_path = os.path.join(ttsfrd_dir, 'resource.zip')
+        if os.path.exists(zip_path):
+            print(f"Extracting {zip_path} to {ttsfrd_dir}...")
+            with zipfile.ZipFile(zip_path, 'r') as zip_ref:
+                zip_ref.extractall(ttsfrd_dir)
+            print("Extraction completed.")
+        else:
+            print(f"Warning: {zip_path} not found for extraction.")
     ## operation
     import time
     import base64
