@@ -15,7 +15,7 @@ def cosyvoice2_example():
     cosyvoice = AutoModel(model_dir='pretrained_models/CosyVoice2-0.5B', load_jit=True, load_trt=True, load_vllm=True, fp16=True)
     for i in tqdm(range(100)):
         set_all_random_seed(i)
-        for _, _ in enumerate(cosyvoice.inference_zero_shot('收到好友从远方寄来的生日礼物，那份意外的惊喜与深深的祝福让我心中充满了甜蜜的快乐，笑容如花儿般绽放。', '希望你以后能够做的比我还好呦。', './asset/zero_shot_prompt.wav', stream=False)):
+        for _, _ in enumerate(cosyvoice.inference_zero_shot('오랜만에 친구에게서 생일 선물을 받았어요. 예상치 못한 깜짝 선물에 마음이 따뜻해지고, 절로 미소가 지어졌습니다.', '앞으로 더 멋진 사람이 되길 바랄게.', './asset/zero_shot_prompt.wav', stream=False)):
             continue
 
 
@@ -25,7 +25,7 @@ def cosyvoice3_example():
     cosyvoice = AutoModel(model_dir='pretrained_models/Fun-CosyVoice3-0.5B', load_trt=True, load_vllm=True, fp16=False)
     for i in tqdm(range(100)):
         set_all_random_seed(i)
-        for _, _ in enumerate(cosyvoice.inference_zero_shot('收到好友从远方寄来的生日礼物，那份意外的惊喜与深深的祝福让我心中充满了甜蜜的快乐，笑容如花儿般绽放。', 'You are a helpful assistant.<|endofprompt|>希望你以后能够做的比我还好呦。',
+        for _, _ in enumerate(cosyvoice.inference_zero_shot('오랜만에 친구에게서 생일 선물을 받았어요. 예상치 못한 깜짝 선물에 마음이 따뜻해지고, 절로 미소가 지어졌습니다.', 'You are a helpful assistant.<|endofprompt|>앞으로 더 멋진 사람이 되길 바랄게.',
                                                             './asset/zero_shot_prompt.wav', stream=False)):
             continue
 
