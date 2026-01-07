@@ -36,6 +36,8 @@
     # cosyvoice3_example()
 
 
+import subprocess
+import sys
 import os
 import torch
 
@@ -148,6 +150,12 @@ if __name__ == '__main__':
             print("Extraction completed.")
         else:
             print(f"Warning: {zip_path} not found for extraction.")
+
+        # ttsfrd installation (can be simplified with just the:
+        # > pip install pretrained_models/CosyVoice-ttsfrd/ttsfrd-0.4.2-cp310-cp310-linux_x86_64.whl)
+        whl_path = os.path.join('pretrained_models','CosyVoice-ttsfrd','ttsfrd-0.4.2-cp310-cp310-linux_x86_64.whl')
+        subprocess.check_call([sys.executable, "-m", "pip", "install", whl_path])
+            
     ## operation
     import time
     import base64
