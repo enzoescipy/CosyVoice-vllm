@@ -283,8 +283,8 @@ class CosyVoice2Model(CosyVoiceModel):
         export_cosyvoice2_vllm(self.llm, model_dir, self.device)
         from vllm import EngineArgs, LLMEngine
         engine_args = EngineArgs(model=model_dir,
-                                #  skip_tokenizer_init=True,  ## Additional skip for the compatiblity => Unstable. pending for activation
-                                #  enable_prompt_embeds=True, ## NOT supported in vllm==0.5.3.post1, the compatible version
+                                 skip_tokenizer_init=True,  ## WAS Additional skip for the compatiblity => Unstable. pending for activation
+                                 enable_prompt_embeds=True, ## WAS not supported in vllm==0.5.3.post1, the compatible version
                                  gpu_memory_utilization=0.2)
         self.llm.vllm = LLMEngine.from_engine_args(engine_args)
         self.llm.lock = threading.Lock()
