@@ -51,6 +51,9 @@ pretrained_models/*
 *_pb2.py
 *.tar
 
+# python venv
+.venv
+
 # testment file
 test_output.wav
 pretrained_models/

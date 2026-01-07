@@ -1,3 +1,4 @@
+
 # import sys
 # sys.path.append('third_party/Matcha-TTS')
 # from vllm import ModelRegistry
@@ -35,8 +36,12 @@
     # cosyvoice3_example()
 
 
-import torch
 import os
+import torch
+
+## setup environ for sure. this fixes the gpu usage into cuda:0.
+os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
+os.environ["CUDA_VISIBLE_DEVICES"] = "0" 
 
 
 class Model:
@@ -129,6 +134,8 @@ if __name__ == '__main__':
     if not os.path.isdir("pretrained_models/Fun-CosyVoice3-0.5B"):
         snapshot_download('Lourdle/Fun-CosyVoice3-0.5B-2512_ONNX', local_dir='pretrained_models/Fun-CosyVoice3-0.5B')
         snapshot_download('FunAudioLLM/Fun-CosyVoice3-0.5B-2512', local_dir='pretrained_models/Fun-CosyVoice3-0.5B', allow_patterns='*')
+    if not os.path.isdir("pretrained_models/CosyVoice-ttsfrd"):
+        snapshot_download('FunAudioLLM/CosyVoice-ttsfrd', local_dir='pretrained_models/CosyVoice-ttsfrd', allow_patterns='*')
     ## operation
     import time
     import base64
