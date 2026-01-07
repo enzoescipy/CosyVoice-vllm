@@ -1,3 +1,9 @@
+# Overview
+This repository is purposed for activate the `Lourdle/CosyVoice`, which is `FunAudioLLM/CosyVoice` 's onnx feature enabled varient. For normal use case, original `Lourdle/CosyVoice` works well. However, when you turn on the `load_vllm=True` option, You will notice that the compatible vllm version is not working for some not-supported arguments. 
+
+This repo is targeted for tackle the minimum change from original `Lourdle/CosyVoice`, ensuring the usage of `load_vllm=True` is possible.
+
+## Lourdle/CosyVoice's Original README
 This repository is a fork of the official CosyVoice project.
 
 The original project did not include ONNX models for the `flow` and `hift` modules, nor provide ONNX-based inference.
