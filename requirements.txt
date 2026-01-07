@@ -1,8 +1,8 @@
-# torch 
-# torchaudio
+torch 
+torchaudio
 conformer
 # deepspeed; sys_platform == 'linux'
-# diffusers
+diffusers >= 0.26.0
 # fastapi
 # fastapi-cli
 # gradio is needed for ./webui.py. activate if you need to setup gradio application.
@@ -17,7 +17,7 @@ inflect
 # lightning
 matplotlib
 # modelscope
-huggingface_hub<=0.21.0 # replaced to huggingface_hub
+huggingface_hub # replaced to huggingface_hub
 # networkx
 numpy
 omegaconf
@@ -42,5 +42,5 @@ x-transformers
 # uvicorn
 # wetext
 # wget
-vllm
+vllm >= 0.10.0
 matcha-tts
