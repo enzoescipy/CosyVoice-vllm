@@ -37,8 +37,8 @@ soundfile
 # tensorboard
 tensorrt
 transformers
-accelerate
-x-transformers
+accelerate >= 1.10.0
+x-transformers >= 2.9.0
 # uvicorn
 # wetext
 # wget
