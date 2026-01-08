@@ -35,7 +35,9 @@ pyworld
 # rich
 soundfile
 # tensorboard
-tensorrt
+tensorrt-cu12; sys_platform == 'linux'
+tensorrt-cu12-bindings; sys_platform == 'linux'
+tensorrt-cu12-libs; sys_platform == 'linux'
 transformers
 accelerate >= 1.10.0
 x-transformers >= 2.9.0
