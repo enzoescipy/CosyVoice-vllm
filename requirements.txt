@@ -35,14 +35,12 @@ pyworld
 # rich
 soundfile
 # tensorboard
-tensorrt-cu12; sys_platform == 'linux'
-tensorrt-cu12-bindings; sys_platform == 'linux'
-tensorrt-cu12-libs; sys_platform == 'linux'
+tensorrt
 transformers
 accelerate
 x-transformers
 # uvicorn
 # wetext
 # wget
-vllm >= 0.10.0
-matcha-tts
+vllm >= 0.13.0
+matcha-tts >= 0.0.7.2
